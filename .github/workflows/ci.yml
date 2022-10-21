@@ -1,0 +1,16 @@
+name: Test all the modules
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: setup
+        uses: ./.github/actions/setup
+      - name: Test
+        run: ./gradlew test
