@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 
-package nl.rijksoverheid.rdo.modules
+package nl.rijksoverheid.rdo.modules.qrgenerator
 
 import android.graphics.Bitmap
 import android.graphics.Color

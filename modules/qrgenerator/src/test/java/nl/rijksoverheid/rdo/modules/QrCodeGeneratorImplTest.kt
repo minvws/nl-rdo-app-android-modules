@@ -1,6 +1,7 @@
 package nl.rijksoverheid.rdo.modules
 
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
+import nl.rijksoverheid.rdo.modules.qrgenerator.QrCodeGeneratorImpl
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
