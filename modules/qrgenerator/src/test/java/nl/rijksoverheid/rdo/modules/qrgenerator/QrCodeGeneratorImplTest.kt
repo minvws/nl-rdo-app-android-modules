@@ -1,7 +1,6 @@
-package nl.rijksoverheid.rdo.modules
+package nl.rijksoverheid.rdo.modules.qrgenerator
 
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
-import nl.rijksoverheid.rdo.modules.qrgenerator.QrCodeGeneratorImpl
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -27,17 +26,17 @@ class QrCodeGeneratorImplTest {
             randomQrContent(1634)
         )
 
-        val qrCodeUtil = QrCodeGeneratorImpl()
+        val qrCodeGenerator = QrCodeGeneratorImpl()
 
         qrContents.forEach {
-            val domesticBitmap = qrCodeUtil.createQrCode(
+            val domesticBitmap = qrCodeGenerator.createQrCode(
                 qrCodeContent = it,
                 width = width,
                 height = width,
                 errorCorrectionLevel = ErrorCorrectionLevel.M
             )
 
-            val euBitmap = qrCodeUtil.createQrCode(
+            val euBitmap = qrCodeGenerator.createQrCode(
                 qrCodeContent = it,
                 width = width,
                 height = width,
