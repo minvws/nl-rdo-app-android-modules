@@ -23,7 +23,7 @@ A list of all the different errors that the openID server can respond can be fou
 
 ## Usage
 
-Instantiate the repository with you client id and a redirect url:
+Instantiate the repository with your client id and a redirect url:
 
 ```kotlin
 import nl.rijksoverheid.rdo.modules.openidconnect.OpenIDConnectRepository  
@@ -38,39 +38,39 @@ private val openIDConnectRepository = OpenIDConnectRepositoryImpl(
 
 Instantiate an openid authorization service:
 ```kotlin
-import net.openid.appauth.AppAuthConfiguration  
-import net.openid.appauth.AuthorizationService  
-import net.openid.appauth.browser.BrowserAllowList  
-import net.openid.appauth.browser.BrowserSelector  
-import net.openid.appauth.browser.VersionRange  
+import net.openid.appauth.AppAuthConfiguration
+import net.openid.appauth.AuthorizationService
+import net.openid.appauth.browser.BrowserAllowList
+import net.openid.appauth.browser.BrowserSelector
+import net.openid.appauth.browser.VersionRange
 import net.openid.appauth.browser.VersionedBrowserMatcher
 
-private val authService by lazy {  
-  val appAuthConfig = AppAuthConfiguration.Builder()  
-        .setBrowserMatcher(BrowserAllowList(*getSupportedBrowsers()))  
-        .build()  
-    AuthorizationService(activityContext, appAuthConfig)  
+private val authService by lazy {
+  val appAuthConfig = AppAuthConfiguration.Builder()
+    .setBrowserMatcher(BrowserAllowList(*getSupportedBrowsers()))
+    .build()
+  AuthorizationService(activityContext, appAuthConfig)
 }
 
-/**  
+/**
  * Gets all supported browsers and filters out browser we don't want to use
- * 
- * @return Array of browser matchers supported for the app auth config  
+ *
+ * @return Array of browser matchers supported for the app auth config
  */
- private fun getSupportedBrowsers(): Array<VersionedBrowserMatcher> =  
-    BrowserSelector.getAllBrowsers(activityContext)
-	    // filter out custom tab browsers as those can cause issues with DigiD   
-        .filter { it.useCustomTab == false }  
-        // filter out business phone apps (eg Google business phone)   
-		.filter { it.packageName != "android" }  
-		.map {  
-				VersionedBrowserMatcher(  
-	                it.packageName,  
-	                it.signatureHashes,  
-	                false,  
-	                VersionRange.ANY_VERSION
-	            )  
-        }.toTypedArray()
+private fun getSupportedBrowsers(): Array<VersionedBrowserMatcher> =
+  BrowserSelector.getAllBrowsers(activityContext)
+    // filter out custom tab browsers as those can cause issues with DigiD   
+    .filter { it.useCustomTab == false }
+    // filter out business phone apps (eg Google business phone)   
+    .filter { it.packageName != "android" }
+    .map {
+      VersionedBrowserMatcher(
+        it.packageName,
+        it.signatureHashes,
+        false,
+        VersionRange.ANY_VERSION
+      )
+    }.toTypedArray()
 ```
 
 Register for an activity result:
