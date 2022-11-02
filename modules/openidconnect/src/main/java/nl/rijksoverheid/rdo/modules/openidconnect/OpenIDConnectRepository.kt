@@ -23,7 +23,7 @@ interface OpenIDConnectRepository {
         authService: AuthorizationService
     )
 
-    suspend fun jwt(
+    suspend fun tokenResponse(
         authService: AuthorizationService,
         authResponse: AuthorizationResponse
     ): TokenResponse

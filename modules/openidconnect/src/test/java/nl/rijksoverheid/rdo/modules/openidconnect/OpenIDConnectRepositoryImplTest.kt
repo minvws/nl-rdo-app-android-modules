@@ -29,7 +29,7 @@ class OpenIDConnectRepositoryImplTest {
 
         val openIDRepository = OpenIDConnectRepositoryImpl("clientId", "redirectUrl")
 
-        assertNotNull(openIDRepository.jwt(authService, authResponse).idToken)
+        assertNotNull(openIDRepository.tokenResponse(authService, authResponse).idToken)
     }
 
     @Test
@@ -45,7 +45,7 @@ class OpenIDConnectRepositoryImplTest {
 
         val openIDRepository = OpenIDConnectRepositoryImpl("clientId", "redirectUrl")
 
-        assertNotNull(openIDRepository.jwt(authService, authResponse).accessToken)
+        assertNotNull(openIDRepository.tokenResponse(authService, authResponse).accessToken)
     }
 
     @Test
@@ -60,7 +60,7 @@ class OpenIDConnectRepositoryImplTest {
         val openIDRepository = OpenIDConnectRepositoryImpl("clientId", "redirectUrl")
 
         try {
-            openIDRepository.jwt(authService, authResponse)
+            openIDRepository.tokenResponse(authService, authResponse)
         } catch (exception: AuthorizationException) {
             assertEquals(1, exception.code)
             assertEquals("User cancelled flow", exception.errorDescription)
@@ -80,7 +80,7 @@ class OpenIDConnectRepositoryImplTest {
             val openIDRepository = OpenIDConnectRepositoryImpl("clientId", "redirectUrl")
 
             try {
-                openIDRepository.jwt(authService, authResponse)
+                openIDRepository.tokenResponse(authService, authResponse)
             } catch (exception: Exception) {
                 assertEquals("Could not get jwt", exception.message)
             }

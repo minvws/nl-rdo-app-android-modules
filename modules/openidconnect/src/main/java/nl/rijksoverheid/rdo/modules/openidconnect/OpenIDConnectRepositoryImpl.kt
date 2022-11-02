@@ -56,7 +56,7 @@ class OpenIDConnectRepositoryImpl(
         ).setScope("openid email profile").build()
     }
 
-    override suspend fun jwt(
+    override suspend fun tokenResponse(
         authService: AuthorizationService,
         authResponse: AuthorizationResponse
     ): TokenResponse {
