@@ -84,71 +84,70 @@ private val loginResult =
 An example of a ViewModel presenting a browser for the user to connect to the openID server:
 
 ```kotlin
-import android.content.Intent  
-import androidx.activity.result.ActivityResult  
-import androidx.activity.result.ActivityResultLauncher  
-import androidx.lifecycle.ViewModel  
-import androidx.lifecycle.viewModelScope  
-import kotlinx.coroutines.launch  
-import net.openid.appauth.AuthorizationException  
-import net.openid.appauth.AuthorizationResponse  
-import net.openid.appauth.AuthorizationService  
-import nl.rijksoverheid.rdo.modules.openidconnect.OpenIDConnectRepository  
-  
-class AuthenticationViewModel(  
-    private val openIDConnectRepository: OpenIDConnectRepository  
-) : ViewModel() {  
+import android.content.Intent
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import net.openid.appauth.AuthorizationException
+import net.openid.appauth.AuthorizationResponse
+import net.openid.appauth.AuthorizationService
+import nl.rijksoverheid.rdo.modules.openidconnect.OpenIDConnectRepository
 
-      // initiate the authorization flow  
-	  fun login(  
-	        activityResultLauncher: ActivityResultLauncher<Intent>,  
-	        authService: AuthorizationService  
-	    ) {  
-	          val issuerUrl = "https://max.youropenidserver.nl"  
-			  viewModelScope.launch {  
-				  try {  
-			                openIDConnectRepository.requestAuthorization(  
-			                    issuerUrl,  
-			                    activityResultLauncher,  
-			                    authService  
-			                )  
-				       } catch (e: Exception) {  
-				                // handle exception  
-					   }  
-			  }  
-	  }  
-	  
-	  // will be called from the openid activity result  
-	  fun handleActivityResult(activityResult: ActivityResult, authService: AuthorizationService) {  
-	        viewModelScope.launch {  
-				  val intent = activityResult.data  
-				  if (intent != null) {  
-		                val authResponse = AuthorizationResponse.fromIntent(intent)  
-		                val authError = AuthorizationException.fromIntent(intent)  
-		                when {  
-		                      authError != null -> {} // handle known error  
-							  authResponse != null -> postAuthResponseResult(authService, authResponse)  
-		                      else -> {}// handle unknown error  
-						     }  
-				  } else {  
-				      // user cancelled the authorization flow  
-				  }  
-		     }  
-	  }  
-	  
-	  // Get the authorization token from the response:  
-	  private suspend fun postAuthResponseResult(  
-	        authService: AuthorizationService,  
-	        authResponse: AuthorizationResponse  
-	    ) {  
-	        try {  
-	            val tokenResponse =  
-	                openIDConnectRepository.tokenResponse(authService, authResponse)  
-	            // use tokenResponse.idToken or/and tokenResponse.accessToken   
-	        } catch (e: Exception) {  
-	            // handle exception  
-	        }  
-	  }  
+class AuthenticationViewModel(
+  private val openIDConnectRepository: OpenIDConnectRepository
+) : ViewModel() {
+  // initiate the authorization flow
+  fun login(
+    activityResultLauncher: ActivityResultLauncher<Intent>,
+    authService: AuthorizationService
+  ) {
+    val issuerUrl = "https://max.youropenidserver.nl"
+    viewModelScope.launch {
+      try {
+        openIDConnectRepository.requestAuthorization(
+          issuerUrl,
+          activityResultLauncher,
+          authService
+        )
+      } catch (e: Exception) {
+        // handle exception
+      }
+    }
+  }
+
+  // will be called from the openid activity result
+  fun handleActivityResult(activityResult: ActivityResult, authService: AuthorizationService) {
+    viewModelScope.launch {
+      val intent = activityResult.data
+      if (intent != null) {
+        val authResponse = AuthorizationResponse.fromIntent(intent)
+        val authError = AuthorizationException.fromIntent(intent)
+        when {
+          authError != null -> {} // handle known error
+          authResponse != null -> postAuthResponseResult(authService, authResponse)
+          else -> {}// handle unknown error
+        }
+      } else {
+        // user cancelled the authorization flow
+      }
+    }
+  }
+
+  // Get the authorization token from the response:
+  private suspend fun postAuthResponseResult(
+    authService: AuthorizationService,
+    authResponse: AuthorizationResponse
+  ) {
+    try {
+      val tokenResponse =
+        openIDConnectRepository.tokenResponse(authService, authResponse)
+      // use tokenResponse.idToken or/and tokenResponse.accessToken 
+    } catch (e: Exception) {
+      // handle exception
+    }
+  }
 }
 ```
 
