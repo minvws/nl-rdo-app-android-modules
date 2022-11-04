@@ -23,6 +23,43 @@ A list of all the different errors that the openID server can respond can be fou
 
 ## Usage
 
+Add a declaration of the [RedirectUriReceiverActivity](https://github.com/openid/AppAuth-Android/blob/master/library/java/net/openid/appauth/RedirectUriReceiverActivity.java) in your `AndroidManifest.xml`:
+
+```xml
+<activity
+        android:name="net.openid.appauth.RedirectUriReceiverActivity"
+        android:exported="true"
+        tools:node="replace">
+  <intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+
+    <data android:scheme="${yourAppSchema}" />
+  </intent-filter>
+
+  <intent-filter android:autoVerify="true">
+    <action android:name="android.intent.action.VIEW" />
+
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+
+    <data
+            android:host="${deepLinkHost}"
+            android:path="/app/auth2"
+            android:scheme="https" />
+  </intent-filter>
+</activity>
+```
+
+and set the placeholder values for each one of your configurations setup in your `build.gradle`, eg for the `defaultConfig`:
+```groovy
+defaultConfig {
+  manifestPlaceholders = [appLabel: "@string/app_name", deepLinkHost: "yourserver.nl", yourAppSchema: "yourDeepLinkSchema"]
+}
+```
+
 Instantiate the repository with your client id and a redirect url:
 
 ```kotlin
