@@ -16,3 +16,4 @@ rootProject.name = "RDO modules"
 include ':modules'
 include ':modules:luhncheck'
 include ':modules:qrgenerator'
+include ':modules:openidconnect'
