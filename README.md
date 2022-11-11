@@ -13,16 +13,20 @@ This package contains:
 
 The modules can be used in a project by adding them as git submodules.
 Steps:
-1. git submodule add https://github.com/minvws/nl-rdo-app-android-modules.git modules
+1. git submodule add https://github.com/minvws/nl-rdo-app-android-modules.git rdo
 2. Add the following in your settings.gradle:
     ```groovy
     include ':modules'
-    project(':modules').projectDir = new File('modules/modules')
+    project(':modules').projectDir = new File('rdo/modules')
     include ':modules:luhncheck'
+    include ':modules:qrgenerator'
+    include ':modules:openidconnect'
     ```
 3. Add the following in our application gradle (app/build.gradle by default):
     ```groovy
     implementation project(":modules:luhncheck")
+    implementation project(":modules:qrgenerator")
+    implementation project(":modules:openidconnect")
     ```
 
 
