@@ -5,12 +5,8 @@ plugins {
 
 android {
     namespace 'nl.rijksoverheid.rdo.modules'
-    compileSdk 33
 
     defaultConfig {
-        minSdk 23
-        targetSdk 33
-
         consumerProguardFiles "consumer-rules.pro"
     }
 
@@ -20,15 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
 }
 
 dependencies {
     api project(":modules:luhncheck")
+    api project(":modules:qrgenerator")
+    api project(":modules:openidconnect")
 }

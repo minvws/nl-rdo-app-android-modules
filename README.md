@@ -3,9 +3,8 @@
 This package contains:
 
 - [Luhn Check](/modules/luhncheck/LuhnCheck.md) for validating tokens
-- [QRGenerator](/modules/qrgenerator/README.md) to assist creating a QR-code (todo)
+- [QRGenerator](/modules/qrgenerator/README.md) to assist creating a QR-code
 - [OpenIDConnect](/modules/openidconnect/README.md) to assist connecting to OpenID
-- HTTP Security (todo)
 
 ## Installation
 

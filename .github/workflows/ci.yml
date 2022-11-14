@@ -12,5 +12,7 @@ jobs:
       - uses: actions/checkout@v3
       - id: setup
         uses: ./.github/actions/setup
+      - name: Spotless
+        run: ./gradlew spotlessCheck
       - name: Test
         run: ./gradlew test
