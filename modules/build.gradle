@@ -19,4 +19,7 @@ android {
 }
 
 dependencies {
+    api project(":modules:luhncheck")
+    api project(":modules:qrgenerator")
+    api project(":modules:openidconnect")
 }
