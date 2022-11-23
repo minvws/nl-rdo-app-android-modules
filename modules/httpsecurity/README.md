@@ -1,8 +1,6 @@
 
 # HTTP Security
 
-# CoronaCheck Event Provider Certificate Guide
-
 ## Introduction
 To increase security of publicly available https endpoints, data can be signed using a signature and validated on retrieving them.
 To add a validation, the `SignatureValidator` interface can be implemented:
@@ -32,3 +30,7 @@ Specifically for the CoronaCheck app, the X509 certificate used to sign the data
 - Issued by [Staat der Nederlanden Private Root CA - G1](http://cert.pkioverheid.nl/PrivateRootCA-G1.cer) or one of its Sub-CAs. A list is available [here](https://cert.pkioverheid.nl/).
 - Must contain the legal name of the event provider.
 An extended guide for CoronaCheck requirements is available [here](https://github.com/minvws/nl-covid19-coronacheck-app-coordination/blob/main/architecture/Security%20Architecture.md).
+
+## License
+
+License is released under the EUPL 1.2 license. [See LICENSE](https://github.com/minvws/nl-rdo-app-android-modules/blob/master/LICENSE.txt) for details.
