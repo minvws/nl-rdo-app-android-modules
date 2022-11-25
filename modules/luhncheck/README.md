@@ -20,4 +20,4 @@ tokenValidator.validate("YL8BSX9T6J39C7", "L2") // false (invalid token)
 
 ## License
 
-License is released under the EUPL 1.2 license. [See LICENSE](https://github.com/minvws/nl-rdo-app-ios-modules/blob/master/LICENSE.txt) for details.
+License is released under the EUPL 1.2 license. [See LICENSE](https://github.com/minvws/nl-rdo-app-android-modules/blob/master/LICENSE.txt) for details.

@@ -2,9 +2,10 @@
 
 This package contains:
 
-- [Luhn Check](/modules/luhncheck/LuhnCheck.md) for validating tokens
+- [Luhn Check](/modules/luhncheck/README.md) for validating tokens
 - [QRGenerator](/modules/qrgenerator/README.md) to assist creating a QR-code
 - [OpenIDConnect](/modules/openidconnect/README.md) to assist connecting to OpenID
+- [HTTPSecurity](/modules/httpsecurity/README.md) to assist signature validation
 
 ## Installation
 
@@ -20,12 +21,14 @@ Steps:
     include ':modules:luhncheck'
     include ':modules:qrgenerator'
     include ':modules:openidconnect'
+    include ':modules:httpsecurity'
     ```
 3. Add the following in our application gradle (app/build.gradle by default):
     ```groovy
     implementation project(":modules:luhncheck")
     implementation project(":modules:qrgenerator")
     implementation project(":modules:openidconnect")
+    implementation project(":modules:httpsecurity")
     ```
 
 
@@ -40,7 +43,4 @@ Git commits must be signed https://docs.github.com/en/github/authenticating-to-g
 ## License
 
 License is released under the EUPL 1.2 license. [See LICENSE](https://github.com/minvws/nl-rdo-app-android-modules/blob/master/LICENSE.txt) for details.
-
-
-
 
