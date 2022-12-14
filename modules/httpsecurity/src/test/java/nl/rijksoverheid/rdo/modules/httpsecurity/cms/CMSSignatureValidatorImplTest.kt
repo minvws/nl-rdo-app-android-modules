@@ -6,7 +6,7 @@ import java.security.cert.X509Certificate
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneId
-import nl.rijksoverheid.rdo.modules.httpsecurity.EV_ROOT_CA
+import nl.rijksoverheid.rdo.modules.httpsecurity.QuoVadis_EV_CA
 import nl.rijksoverheid.rdo.modules.httpsecurity.SignatureValidationException
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import org.bouncycastle.util.encoders.Base64
@@ -27,10 +27,10 @@ class CMSSignatureValidatorTest {
         val provider = BouncyCastleProvider()
         // wrong certificate for signing
         val signingCertificate = CertificateFactory.getInstance("X509", provider)
-            .generateCertificate(CMSSignatureValidatorTest::class.java.getResourceAsStream("/ca-pki-overheid.pem")) as X509Certificate
+            .generateCertificate(CMSSignatureValidatorTest::class.java.getResourceAsStream("/quovadis_root_ca_g3.pem")) as X509Certificate
 
         val validator = CMSSignatureValidatorBuilder.build(
-            certificatesPem = listOf(EV_ROOT_CA),
+            certificatesPem = listOf(QuoVadis_EV_CA),
             signingCertificates = listOf(signingCertificate)
         )
 
