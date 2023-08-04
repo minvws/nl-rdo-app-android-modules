@@ -12,7 +12,6 @@ object CMSSignatureValidatorBuilder {
         cnMatchingString: String? = null,
         clock: Clock
     ): CMSSignatureValidatorImpl {
-
         return CMSSignatureValidatorImpl(
             signingCertificates = emptyList(),
             trustAnchors = trustCertificates(certificatesPem),
@@ -55,7 +54,6 @@ object CMSSignatureValidatorBuilder {
         certificatesPem: List<String>,
         signingCertificates: List<X509Certificate>
     ): CMSSignatureValidatorImpl {
-
         return CMSSignatureValidatorImpl(
             signingCertificates = signingCertificates,
             trustAnchors = trustCertificates(certificatesPem),
