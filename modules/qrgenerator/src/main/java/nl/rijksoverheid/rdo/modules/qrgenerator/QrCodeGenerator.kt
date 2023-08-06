@@ -66,7 +66,11 @@ class QrCodeGeneratorImpl : QrCodeGenerator {
                         (xf * bitMatrix.width.toFloat()).toInt(),
                         (yf * bitMatrix.height.toFloat()).toInt()
                     )
-                ) Color.BLACK else Color.WHITE
+                ) {
+                    Color.BLACK
+                } else {
+                    Color.WHITE
+                }
             }
         }
         bitmap.setPixels(pixels, 0, width, 0, 0, width, height)

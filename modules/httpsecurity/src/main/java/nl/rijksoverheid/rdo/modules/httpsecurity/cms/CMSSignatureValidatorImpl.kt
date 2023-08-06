@@ -45,7 +45,8 @@ class CMSSignatureValidatorImpl internal constructor(
             val sp = CMSSignedDataParser(
                 JcaDigestCalculatorProviderBuilder().setProvider(provider)
                     .build(),
-                CMSTypedStream(BufferedInputStream(content)), signature
+                CMSTypedStream(BufferedInputStream(content)),
+                signature
             )
 
             sp.signedContent.drain()
@@ -71,7 +72,8 @@ class CMSSignatureValidatorImpl internal constructor(
                 if (this.signingCertificates.all {
                         val expiringTime = it.notAfter.time
                         nowMs > expiringTime
-                    }) {
+                    }
+                ) {
                     throw SignatureValidationException("Expired certificate")
                 }
             }
@@ -89,7 +91,8 @@ class CMSSignatureValidatorImpl internal constructor(
                         .map { IETFUtils.valueToString(it.first.value) }
                 if (!subjectRDNs.any {
                         it.endsWith(matchingString)
-                    }) {
+                    }
+                ) {
                     throw SignatureValidationException("Signing certificate does not match expected CN")
                 }
             }
