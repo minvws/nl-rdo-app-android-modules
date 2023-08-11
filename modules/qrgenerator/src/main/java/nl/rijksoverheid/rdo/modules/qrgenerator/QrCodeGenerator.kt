@@ -27,7 +27,7 @@ interface QrCodeGenerator {
         qrCodeContent: String,
         width: Int,
         height: Int,
-        errorCorrectionLevel: ErrorCorrectionLevel
+        errorCorrectionLevel: ErrorCorrectionLevel,
     ): Bitmap
 }
 
@@ -36,11 +36,11 @@ class QrCodeGeneratorImpl : QrCodeGenerator {
         qrCodeContent: String,
         width: Int,
         height: Int,
-        errorCorrectionLevel: ErrorCorrectionLevel
+        errorCorrectionLevel: ErrorCorrectionLevel,
     ): Bitmap {
         val multiFormatWriter = MultiFormatWriter()
         val hints: MutableMap<EncodeHintType, Any> = EnumMap(
-            EncodeHintType::class.java
+            EncodeHintType::class.java,
         )
         hints[EncodeHintType.MARGIN] = 0
         hints[EncodeHintType.ERROR_CORRECTION] = errorCorrectionLevel
@@ -49,12 +49,12 @@ class QrCodeGeneratorImpl : QrCodeGenerator {
             BarcodeFormat.QR_CODE,
             0,
             0,
-            hints
+            hints,
         )
         val bitmap = Bitmap.createBitmap(
             width,
             height,
-            Bitmap.Config.RGB_565
+            Bitmap.Config.RGB_565,
         )
         val pixels = IntArray(width * height)
         for (y in 0 until height) {
@@ -64,7 +64,7 @@ class QrCodeGeneratorImpl : QrCodeGenerator {
                 val yf: Float = y.toFloat() / height
                 pixels[offset + x] = if (bitMatrix.get(
                         (xf * bitMatrix.width.toFloat()).toInt(),
-                        (yf * bitMatrix.height.toFloat()).toInt()
+                        (yf * bitMatrix.height.toFloat()).toInt(),
                     )
                 ) {
                     Color.BLACK

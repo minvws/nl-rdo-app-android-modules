@@ -23,7 +23,7 @@ class QrCodeGeneratorImplTest {
             randomQrContent(1343),
             randomQrContent(1446),
             randomQrContent(1543),
-            randomQrContent(1634)
+            randomQrContent(1634),
         )
 
         val qrCodeGenerator = QrCodeGeneratorImpl()
@@ -33,14 +33,14 @@ class QrCodeGeneratorImplTest {
                 qrCodeContent = it,
                 width = width,
                 height = width,
-                errorCorrectionLevel = ErrorCorrectionLevel.M
+                errorCorrectionLevel = ErrorCorrectionLevel.M,
             )
 
             val euBitmap = qrCodeGenerator.createQrCode(
                 qrCodeContent = it,
                 width = width,
                 height = width,
-                errorCorrectionLevel = ErrorCorrectionLevel.Q
+                errorCorrectionLevel = ErrorCorrectionLevel.Q,
             )
 
             assertEquals(width, domesticBitmap.width)

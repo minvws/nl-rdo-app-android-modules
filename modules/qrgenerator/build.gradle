@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.google.zxing:core:3.5.0'
+    implementation 'com.google.zxing:core:3.5.1'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.robolectric:robolectric:4.9'
+    testImplementation 'org.robolectric:robolectric:4.9.2'
 }

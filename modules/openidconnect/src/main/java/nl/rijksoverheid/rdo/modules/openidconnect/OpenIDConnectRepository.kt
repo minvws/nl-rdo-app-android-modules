@@ -20,11 +20,11 @@ interface OpenIDConnectRepository {
     suspend fun requestAuthorization(
         issuerUrl: String,
         activityResultLauncher: ActivityResultLauncher<Intent>,
-        authService: AuthorizationService
+        authService: AuthorizationService,
     )
 
     suspend fun tokenResponse(
         authService: AuthorizationService,
-        authResponse: AuthorizationResponse
+        authResponse: AuthorizationResponse,
     ): TokenResponse
 }
