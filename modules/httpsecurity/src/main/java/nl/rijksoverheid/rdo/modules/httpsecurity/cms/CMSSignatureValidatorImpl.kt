@@ -1,16 +1,5 @@
 package nl.rijksoverheid.rdo.modules.httpsecurity.cms
 
-import java.io.BufferedInputStream
-import java.io.InputStream
-import java.security.cert.CertPathBuilder
-import java.security.cert.CertPathBuilderException
-import java.security.cert.CertStore
-import java.security.cert.PKIXBuilderParameters
-import java.security.cert.PKIXCertPathBuilderResult
-import java.security.cert.TrustAnchor
-import java.security.cert.X509CertSelector
-import java.security.cert.X509Certificate
-import java.time.Clock
 import nl.rijksoverheid.rdo.modules.httpsecurity.SignatureValidationException
 import nl.rijksoverheid.rdo.modules.httpsecurity.SignatureValidator
 import org.bouncycastle.asn1.x500.style.BCStyle
@@ -23,6 +12,17 @@ import org.bouncycastle.cms.SignerId
 import org.bouncycastle.cms.jcajce.JcaSimpleSignerInfoVerifierBuilder
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder
+import java.io.BufferedInputStream
+import java.io.InputStream
+import java.security.cert.CertPathBuilder
+import java.security.cert.CertPathBuilderException
+import java.security.cert.CertStore
+import java.security.cert.PKIXBuilderParameters
+import java.security.cert.PKIXCertPathBuilderResult
+import java.security.cert.TrustAnchor
+import java.security.cert.X509CertSelector
+import java.security.cert.X509Certificate
+import java.time.Clock
 
 /*
  *  Copyright (c) 2021 De Staat der Nederlanden, Ministerie van Volksgezondheid, Welzijn en Sport.
@@ -35,7 +35,7 @@ class CMSSignatureValidatorImpl internal constructor(
     private val signingCertificates: List<X509Certificate>,
     private val trustAnchors: Set<TrustAnchor>,
     private val matchingString: String?,
-    private val clock: Clock
+    private val clock: Clock,
 ) : SignatureValidator {
 
     private val provider = BouncyCastleProvider()
@@ -46,7 +46,7 @@ class CMSSignatureValidatorImpl internal constructor(
                 JcaDigestCalculatorProviderBuilder().setProvider(provider)
                     .build(),
                 CMSTypedStream(BufferedInputStream(content)),
-                signature
+                signature,
             )
 
             sp.signedContent.drain()
@@ -99,7 +99,7 @@ class CMSSignatureValidatorImpl internal constructor(
 
             if (!signer.verify(
                     JcaSimpleSignerInfoVerifierBuilder().setProvider(provider)
-                        .build(signingCertificate)
+                        .build(signingCertificate),
                 )
             ) {
                 throw SignatureValidationException("The signature does not match")
@@ -116,7 +116,7 @@ class CMSSignatureValidatorImpl internal constructor(
     private fun checkCertPath(
         trustAnchors: Set<TrustAnchor>,
         signerId: SignerId,
-        certs: CertStore
+        certs: CertStore,
     ): PKIXCertPathBuilderResult {
         val pathBuilder: CertPathBuilder =
             CertPathBuilder.getInstance("PKIX", provider)
@@ -130,7 +130,7 @@ class CMSSignatureValidatorImpl internal constructor(
 
         val params = PKIXBuilderParameters(
             trustAnchors,
-            targetConstraints
+            targetConstraints,
         )
         params.addCertStore(certs)
         params.isRevocationEnabled = false

@@ -10,13 +10,13 @@ object CMSSignatureValidatorBuilder {
     fun build(
         certificatesPem: List<String>,
         cnMatchingString: String? = null,
-        clock: Clock
+        clock: Clock,
     ): CMSSignatureValidatorImpl {
         return CMSSignatureValidatorImpl(
             signingCertificates = emptyList(),
             trustAnchors = trustCertificates(certificatesPem),
             matchingString = cnMatchingString,
-            clock = clock
+            clock = clock,
         )
     }
 
@@ -25,8 +25,8 @@ object CMSSignatureValidatorBuilder {
         return certificatesPem.map { certificatePem ->
             val trustedCert = factory.generateCertificate(
                 ByteArrayInputStream(
-                    certificatePem.toByteArray()
-                )
+                    certificatePem.toByteArray(),
+                ),
             ) as X509Certificate
             TrustAnchor(trustedCert, null)
         }.toSet()
@@ -35,7 +35,7 @@ object CMSSignatureValidatorBuilder {
     fun build(
         certificatesPem: List<String> = emptyList(),
         signingCertificateBytes: List<ByteArray>,
-        clock: Clock
+        clock: Clock,
     ): CMSSignatureValidatorImpl {
         val x509s = signingCertificateBytes.map {
             CertificateFactory.getInstance("X509")
@@ -46,19 +46,19 @@ object CMSSignatureValidatorBuilder {
             signingCertificates = x509s,
             trustAnchors = trustCertificates(certificatesPem),
             matchingString = null,
-            clock = clock
+            clock = clock,
         )
     }
 
     fun build(
         certificatesPem: List<String>,
-        signingCertificates: List<X509Certificate>
+        signingCertificates: List<X509Certificate>,
     ): CMSSignatureValidatorImpl {
         return CMSSignatureValidatorImpl(
             signingCertificates = signingCertificates,
             trustAnchors = trustCertificates(certificatesPem),
             matchingString = null,
-            clock = Clock.systemUTC()
+            clock = Clock.systemUTC(),
         )
     }
 }

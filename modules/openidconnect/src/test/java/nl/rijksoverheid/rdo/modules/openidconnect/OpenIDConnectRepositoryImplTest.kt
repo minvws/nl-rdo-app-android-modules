@@ -23,7 +23,7 @@ class OpenIDConnectRepositoryImplTest {
         coEvery { authService.performTokenRequest(any(), any()) } answers {
             secondArg<AuthorizationService.TokenResponseCallback>().onTokenRequestCompleted(
                 response,
-                null
+                null,
             )
         }
 
@@ -39,7 +39,7 @@ class OpenIDConnectRepositoryImplTest {
         coEvery { authService.performTokenRequest(any(), any()) } answers {
             secondArg<AuthorizationService.TokenResponseCallback>().onTokenRequestCompleted(
                 response,
-                null
+                null,
             )
         }
 
@@ -53,7 +53,7 @@ class OpenIDConnectRepositoryImplTest {
         coEvery { authService.performTokenRequest(any(), any()) } answers {
             secondArg<AuthorizationService.TokenResponseCallback>().onTokenRequestCompleted(
                 null,
-                AuthorizationException.GeneralErrors.USER_CANCELED_AUTH_FLOW
+                AuthorizationException.GeneralErrors.USER_CANCELED_AUTH_FLOW,
             )
         }
 
@@ -73,7 +73,7 @@ class OpenIDConnectRepositoryImplTest {
             coEvery { authService.performTokenRequest(any(), any()) } answers {
                 secondArg<AuthorizationService.TokenResponseCallback>().onTokenRequestCompleted(
                     null,
-                    null
+                    null,
                 )
             }
 

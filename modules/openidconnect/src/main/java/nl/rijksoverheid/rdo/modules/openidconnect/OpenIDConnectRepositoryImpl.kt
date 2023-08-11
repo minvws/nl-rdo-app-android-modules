@@ -3,14 +3,14 @@ package nl.rijksoverheid.rdo.modules.openidconnect
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.result.ActivityResultLauncher
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 import net.openid.appauth.AuthorizationRequest
 import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.AuthorizationService
 import net.openid.appauth.AuthorizationServiceConfiguration
 import net.openid.appauth.ResponseTypeValues
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 /*
  *  Copyright (c) 2021 De Staat der Nederlanden, Ministerie van Volksgezondheid, Welzijn en Sport.
@@ -21,13 +21,13 @@ import net.openid.appauth.ResponseTypeValues
  */
 class OpenIDConnectRepositoryImpl(
     private val clientId: String,
-    private val redirectUrl: String
+    private val redirectUrl: String,
 ) : OpenIDConnectRepository {
 
     override suspend fun requestAuthorization(
         issuerUrl: String,
         activityResultLauncher: ActivityResultLauncher<Intent>,
-        authService: AuthorizationService
+        authService: AuthorizationService,
     ) {
         val authServiceConfiguration = authorizationServiceConfiguration(issuerUrl)
         val authRequest = authRequest(serviceConfiguration = authServiceConfiguration)
@@ -52,20 +52,20 @@ class OpenIDConnectRepositoryImpl(
             serviceConfiguration,
             clientId,
             ResponseTypeValues.CODE,
-            Uri.parse(redirectUrl)
+            Uri.parse(redirectUrl),
         ).setScope("openid email profile").build()
     }
 
     override suspend fun tokenResponse(
         authService: AuthorizationService,
-        authResponse: AuthorizationResponse
+        authResponse: AuthorizationResponse,
     ): TokenResponse {
         return suspendCoroutine { continuation ->
             authService.performTokenRequest(authResponse.createTokenExchangeRequest()) { resp, error ->
                 val tokenResponse = TokenResponse(resp?.idToken, resp?.accessToken)
                 when {
                     tokenResponse.idToken != null || tokenResponse.accessToken != null -> continuation.resume(
-                        tokenResponse
+                        tokenResponse,
                     )
                     error != null -> continuation.resumeWithException(error)
                     else -> continuation.resumeWithException(Exception("Could not get jwt"))
